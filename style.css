@@ -1,0 +1,904 @@
+/* ==========================================================================
+   1. 全域基本設定 (Global Settings) - 核心強效鎖定 X 軸
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box; /* 確保所有 padding 與邊框都不會撐大元件 */
+  margin: 0;
+  padding: 0;
+}
+html, body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;    /* 🔥 終極大絕：強制網頁絕對不可產生橫向 X 軸滾動條 */
+  font-family: 'Noto Sans TC', sans-serif;
+  background-color: #FBF7F0; 
+  color: #2B1B15;            
+  scroll-behavior: smooth;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ==========================================================================
+   2. 主視覺人像防爆等比例技術 (Aspect-Ratio)
+   ========================================================================== */
+.hero-image {
+  flex: 1;
+  min-width: 300px;
+  max-width: 540px; 
+  width: 100%;
+}
+.hero-avatar-responsive-box {
+  width: 100%;
+  position: relative;
+  aspect-ratio: 1 / 1;      
+  border-radius: 16px;      
+  overflow: hidden;         
+  background-color: #F2EFE9;
+}
+.rwd-avatar-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;        
+  object-position: center 25%; 
+  transition: all 0.3s ease;
+}
+
+/* ==========================================================================
+   3. 導覽列 (Navbar)
+   ========================================================================== */
+.navbar {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+.nav-links a {
+  margin-left: 25px;
+  font-size: 14px;
+  opacity: 0.8;
+  transition: color 0.3s ease;
+}
+.nav-links a:hover {
+  color: #E59866;
+}
+
+/* ==========================================================================
+   4. 主視覺區文字基礎排版 (Hero Text)
+   ========================================================================== */
+.hero {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 20px;
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.hero-text {
+  flex: 1.2;
+  min-width: 300px;
+}
+.hero-text h1 {
+  font-size: 50px;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  font-weight: 900;
+}
+.hero-text p {
+  color: #55433C;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+.hero-btns a {
+  padding: 12px 30px;
+  border-radius: 25px;
+  font-size: 14px;
+  display: inline-block;
+  margin-right: 12px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+.btn-dark {
+  background-color: #2B1B15;
+  color: #fff;
+}
+.btn-dark:hover {
+  background-color: #E59866;
+  color: #2B1B15;
+}
+.btn-outline {
+  border: 1px solid #2B1B15;
+}
+.btn-outline:hover {
+  background-color: #2B1B15;
+  color: #fff;
+}
+
+/* ==========================================================================
+   5. 服務項目區 (Services Section)
+   ========================================================================== */
+.services {
+  background-color: #2B1B15; 
+  color: #F9F6F0;
+  padding: 80px 20px;
+  width: 100%;
+}
+.section-title {
+  max-width: 1200px;
+  margin: 60px auto 40px auto;
+  width: 100%;
+  text-align: center;
+}
+.subtitle {
+  color: #E59866;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  display: block;
+  margin-bottom: 5px;
+}
+.section-title h2 {
+  font-size: 32px;
+}
+.services-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  width: 100%;
+}
+.service-card-new {
+  background-color: #F9F6F0; 
+  padding: 40px 30px;
+  border-radius: 16px;       
+  position: relative;        
+  color: #2B1B15;
+  border: 1px solid #eee;
+  transition: all 0.3s ease;
+}
+.service-card-new:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+.icon-top {
+  position: absolute;
+  top: 35px;
+  right: 30px;
+  font-size: 24px;
+  color: #2B1B15;
+}
+.category-tag {
+  display: block;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+  font-size: 14px;
+  opacity: 0.9;
+}
+.service-card-new h3 {
+  font-size: 25px;
+  font-weight: 700;
+  margin-top: -10px;
+  margin-bottom: 16px;
+}
+.service-card-new p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #55433C;
+  max-width: 100%;            
+  margin-bottom: 30px;
+}
+.arrow-btn {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background-color: #3D3D3D; 
+  color: #fff;
+  border-radius: 50%;        
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.service-card-new:hover .arrow-btn {
+  background-color: #E59866; 
+  color: #2B1B15;
+}
+
+==========================================================================
+
+   6. 作品集區 (Projects Section) - 帶有外框的流體雙欄排版
+
+   ========================================================================== */
+
+.projects {
+  max-width: 1000px;        /* 💡 從 1200px 縮小到 1000px（控制整體內容的最大寬度） */
+  margin: 0 auto;
+  padding: 80px 20px;
+  width: 100%;             /* 修正原本程式碼寫錯的 70 (少了單位) */
+}
+
+.text-center {
+  margin: 120px auto 40px auto; /* 上方從 80px 改到 120px 讓字再往下移！左右改為 auto 修正置中 */
+  text-align: center;            /* 確保文字置中 */
+}
+
+.project-list {
+
+  display: flex;
+
+  flex-direction: column;
+
+  /* gap: 40px;  <- 💡 把這一行註解掉或刪除，改用下方 margin-bottom 控制會更精準 */
+
+  width: 100%;
+
+}
+
+
+
+/* 核心卡片外圍：加上框線、圓角與內襯留白 */
+
+.project-item {
+  display: flex;
+  align-items: stretch;    
+  background-color: #f8dac7;
+  border: 1.5px solid #2B1B15;
+  border-radius: 16px;      
+  padding: 30px;            
+  gap: 40px;                
+  
+  /* 💡 縮小框的寬度核心設定 */
+  width: 100%;              /* 💡 讓卡片寬度只佔外層的 85% (可依喜好調整，如 80%) */
+  max-width: 1150px;        /* 💡 限制卡片最大寬度 */
+  margin: 0 auto 40px auto; /* 💡 關鍵：`0 auto` 讓縮小後的卡片在全螢幕時保持「水平置中」 */
+  
+  box-sizing: border-box;
+}
+
+/* 運用 flex-direction: row-reverse 達到圖文對調 */
+
+.project-item-reverse {
+
+  flex-direction: row-reverse;
+
+}
+
+
+
+/* 圖片比例小：佔 3 成寬度 */
+
+/* 圖片比例縮小：限制最大寬度，並確保垂直置中 */
+.project-img {
+  flex: 2.5;                /* 比原本的 3 再縮小一點點點比例 */
+  max-width: 300px;         /* 💡 限制最大寬度不超過 280px (可自由調小，如 240px) */
+  height: 200px;            /* 💡 固定高度，配合圖片比例縮小 */
+  border-radius: 8px;
+  overflow: hidden;
+  align-self: center;       /* 💡 核心關鍵：讓圖片在卡片裡「垂直置中」 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.project-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;        /* 💡 改為 cover 讓照片完美填滿縮小後的框，不會有白邊 */
+  transition: opacity 1s ease-in-out;
+}
+
+
+
+/* 文字範圍大：佔 7 成寬度 */
+
+.project-content {
+  flex: 7;
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;  
+  text-align: left;      
+  justify-content: center;  
+}
+
+
+
+.project-content .date {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.project-content .tags {
+  font-size: 20px;
+  font-weight: 500;
+  color: black;           /* 🔥 標籤改為您指定的優雅燕麥色 */
+  margin-bottom: 16px;
+}
+
+.project-content h3 {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: #2B1B15;
+  margin-bottom: 16px;
+}
+
+.project-content p {
+  font-size: 15px;
+  color: #55433C;
+  line-height: 1.4;       /* 舒適的文字換行行距 */
+  margin-bottom: 8px;     /* 大幅縮短條目 1, 2, 3 之間的垂直距離 */
+  width: 100%;            /* 確保文字寬度填滿欄位 */
+}
+
+
+.project-content p:last-of-type {
+  margin-bottom: 20px;    
+}
+
+.project-btn-dark {
+  background-color: #2B1B15;
+  color: #fff;
+  padding: 10px 30px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.project-btn-dark:hover {
+  background-color: #efdbcc; /* 🔥 前往專案按鈕 hover 同步更新 */
+  color: #2B1B15;
+}
+
+.projects-more-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;        
+}
+
+.explore-more-btn {
+  background-color: #1F1410;
+  color: #ffffff;
+  padding: 14px 45px;        
+  border-radius: 30px;      
+  font-size: 15px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.explore-more-btn:hover {
+  background-color: #efdbcc; /* 🔥 Learn More 按鈕 hover 同步更新 */
+  color: #2B1B15;
+  transform: translateY(-2px);
+}
+
+.slider-dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #d8c3b5;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+
+
+.dot.active {
+  background: #2B1B15;
+  transform: scale(1.25);
+}
+
+/* ==========================================================================
+   學校名單流體雙欄化
+   ========================================================================== */
+.school-grid-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 🔥 完美對切成左右兩欄 */
+  column-gap: 30px;               /* 左右兩欄中間的空白距離 */
+  row-gap: 8px;                   /* 上下行之間的距離，可以自由調大調小 */
+  width: 100%;
+  margin-top: 10px;               /* 與上方大標題的間距 */
+}
+
+/* 覆蓋原本 CSS 的 margin-bottom，讓雙欄排列時高度更整齊 */
+.school-grid-box p {
+  margin-bottom: 0 !important; 
+}
+
+/* ==========================================================================
+
+   RWD 響應式優化修正
+
+   ========================================================================== */
+
+@media (max-width: 992px) {
+
+  .project-item, .project-item-reverse {
+    flex-direction: column;
+    gap: 24px;
+    padding: 20px;
+  }
+
+  .project-img {
+    flex: none;
+    width: 100%;
+    height: 240px;
+  }
+
+  .project-content {
+    flex: none;
+    width: 100%;
+  }
+
+}
+
+/* ==========================================================================
+   7. 部落格區 (Blogs Section)
+   ========================================================================== */
+.blogs {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 20px;
+  width: 100%;
+}
+.blog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 40px;
+}
+.blog-title-box .blog-subtitle {
+  font-size: 14px;
+  color: #666;
+  display: block;
+  margin-bottom: 4px;
+}
+.blog-title-box h2 {
+  font-size: 48px;
+  font-weight: bold;
+  color: #3E4E5E; 
+  letter-spacing: 1px;
+}
+.more-btn {
+  border: 1px solid #2B1B15;
+  padding: 8px 24px;
+  border-radius: 30px; 
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+.more-btn:hover {
+  background-color: #2B1B15;
+  color: #fff;
+}
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 30px;
+  width: 100%;
+}
+.blog-post {
+  display: flex;
+  flex-direction: column;
+}
+.blog-img-wrap {
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+.blog-img-wrap img {
+  border-radius: 0; 
+  object-fit: cover;
+}
+.blog-body .blog-tags {
+  font-size: 12px;
+  color: #999;
+  display: block;
+  margin-bottom: 12px;
+}
+.blog-body h3 {
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1.5;
+  color: #333;
+  margin-bottom: 20px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.blog-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: #888;
+  margin-top: auto; 
+}
+.post-stats span {
+  margin-left: 12px;
+}
+
+/* ==========================================================================
+   8. 電子報訂閱區 (Subscribe Section) - 修正極小螢幕寬度
+   ========================================================================== */
+.subscribe {
+  background: none;
+  background-color: #6A737D; 
+  padding: 0;
+  text-align: left;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr; 
+  align-items: center;
+  width: 100%;
+}
+.sub-image-side {
+  height: 450px;
+}
+.sub-image-side img {
+  object-fit: cover;
+}
+.sub-content-side {
+  padding: 60px 80px;
+  color: #fff;
+}
+.sub-mini-title {
+  font-size: 14px;
+  color: #E0E0E0;
+  display: block;
+  margin-bottom: 8px;
+}
+.sub-content-side h2 {
+  font-size: 56px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+.sub-content-side p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #F0F0F0;
+  margin-bottom: 30px;
+}
+.sub-form {
+  max-width: 450px;
+  width: 100%;            /* 🔥 確保手機版時表單不會大於螢幕寬度而爆開 */
+  margin: 0;
+  display: flex;
+  align-items: center;
+  border: 1.5px solid #FFFFFF;
+  border-radius: 50px;
+  padding: 6px 6px 6px 24px;
+}
+.sub-form input {
+  background: transparent;
+  color: #fff;
+  border: none;
+  padding: 0;
+  font-size: 15px;
+  outline: none;
+  width: 100%;
+}
+.sub-form input::placeholder {
+  color: #E0E0E0;
+}
+.sub-form button {
+  background-color: #FFFFFF;
+  color: #333333;
+  padding: 10px 30px;
+  border-radius: 50px;
+  font-weight: bold;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+  flex-shrink: 0;         /* 防止送出按鈕被壓縮成橢圓形 */
+}
+.sub-form button:hover {
+  background-color: #E0E0E0;
+}
+
+/* ==========================================================================
+   9. 聯絡與頁尾 (Footer Section)
+   ========================================================================== */
+.footer {
+  background-color: #261610; 
+  color: #F9F6F0;
+  padding: 80px 20px 20px 20px;
+  width: 100%;
+}
+.footer-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.3fr; 
+  gap: 60px;
+  align-items: flex-start;
+  width: 100%;
+}
+.contact-info .contact-mini-title {
+  font-size: 14px;
+  color: #BAA193;
+  display: block;
+  margin-bottom: 4px;
+}
+.contact-info h2 {
+  font-size: 56px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-bottom: 24px;
+}
+.contact-info p {
+  color: #D1C4BC;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.social-icons {
+  margin: 20px 0 24px 0;
+  display: flex;
+  gap: 16px;
+}
+.social-icons a {
+  width: 44px;
+  height: 44px;
+  background-color: #FFFFFF;
+  color: #261610;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  transition: transform 0.3s ease, background-color 0.3s;
+}
+.social-icons a:hover {
+  transform: translateY(-3px);
+  background-color: #E5DCD6;
+}
+.email-text {
+  font-size: 15px;
+  color: #FFFFFF;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.contact-form-box {
+  width: 100%;
+}
+.form-row-double {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+.form-row-single {
+  display: block;
+  margin-bottom: 20px;
+}
+.field-wrap {
+  position: relative;
+  width: 100%;
+}
+.field-wrap label {
+  position: absolute;
+  top: 10px;
+  left: 24px;
+  font-size: 11px;
+  color: #BAA193;
+  font-weight: bold;
+}
+.contact-form input, 
+.contact-form textarea {
+  width: 100%;
+  padding: 28px 24px 10px 24px; 
+  background-color: transparent; 
+  border: 1.5px solid #FFFFFF;
+  color: #fff;
+  border-radius: 25px;            
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: rgba(255, 255, 255, 0.35); 
+}
+.contact-form input:focus, 
+.contact-form textarea:focus {
+  border-color: #E59866;
+}
+.contact-form textarea {
+  border-radius: 20px;
+  padding-top: 32px;
+  resize: vertical;
+}
+.btn-form-submit {
+  width: 100%;
+  padding: 14px;
+  background-color: #ffffff;
+  color: #261610;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin-top: 10px;
+}
+.btn-form-submit:hover {
+  background-color: #E5DCD6;
+}
+.copyright {
+  text-align: center;
+  font-size: 11px;
+  color: #666;
+  margin-top: 10px;
+  border-top: 1px solid #3d2920;
+  padding-top: 20px;
+}
+.form-success {
+  display: none;
+  background-color: #4CAF50;
+  color: #fff;
+  padding: 1px 14px;
+  border-radius: 12px;
+  font-size: 14px;
+  margin-bottom: 16px;
+  text-align: center;
+  animation: fadeIn 0.3s ease;
+}
+
+/* loading / 文字切換控制 */
+.btn-loading {
+  display: none;
+}
+
+/* loading 狀態 */
+.btn-form-submit.loading {
+  background-color: #E59866; /* 改成暖色表示處理中 */
+  color: #2B1B15;
+  cursor: not-allowed;
+  position: relative;
+}
+
+/* 隱藏「送出」文字 */
+.btn-form-submit.loading .btn-text {
+  display: none;
+}
+
+/* 顯示 loading 文字 */
+.btn-form-submit.loading .btn-loading {
+  display: inline;
+}
+
+/* 成功狀態（按鈕變化） */
+.btn-form-submit.success {
+  background-color: #4CAF50;
+  color: #fff;
+}
+
+/* 淡入動畫 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================================
+   10. 響應式流體降級排版 (RWD)
+   ========================================================================== */
+@media (max-width: 992px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    gap: 40px;
+  }
+  .hero-image {
+    max-width: 400px; 
+  }
+  .project-info-floating {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    margin: -40px auto 0 auto; 
+    z-index: 2;
+  }
+  .blog-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .subscribe {
+    grid-template-columns: 1fr;
+  }
+  .sub-image-side {
+    height: 300px;
+  }
+  .sub-content-side {
+    padding: 40px 20px; /* 手機版留白稍微內縮防擠壓 */
+  }
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar { 
+    padding: 20px; 
+    flex-direction: column; 
+    gap: 15px; 
+  }
+  .nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px 15px;
+  }
+  .nav-links a { 
+    margin-left: 0; 
+  }
+  .hero-text h1 { 
+    font-size: 36px; 
+  }
+  .project-img { 
+    height: 300px; 
+  }
+  .blog-grid {
+    grid-template-columns: 1fr;
+  }
+  .blog-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .form-row-double {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .sub-content-side h2 {
+    font-size: 38px; /* 手機版標題字級適度縮小防止強行撐開網頁 */
+  }
+}
