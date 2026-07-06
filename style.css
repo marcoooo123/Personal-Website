@@ -65,18 +65,36 @@ img {
   align-items: center;
   width: 100%;
 }
+
 .logo {
   font-size: 24px;
   font-weight: bold;
 }
+
 .nav-links a {
-  margin-left: 25px;
-  font-size: 14px;
+  margin-left: 8px;
+  /* 💡 字體縮小：從 14px 改為 12px（網頁小字級常用大小） */
+  font-size: 13px;
   opacity: 0.8;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
+  
+  /* 💡 膠囊尺寸同步縮小：上下 6px、左右 12px，維持好看的比例 */
+  padding: 6px 12px;
+  
+  border: 1px solid transparent; 
+  border-radius: 999px; 
 }
+
+
 .nav-links a:hover {
   color: #E59866;
+  opacity: 1; /* 懸停時讓文字完全顯現 */
+  
+  /* 💡 懸停時顯現的膠囊邊框 */
+  border: 1px solid #E59866; 
+  
+  /* 【可選加分效果】如果你希望 hover 時有一層淡淡的背景色，可以把下面這行註解打開： */
+  /* background-color: rgba(229, 152, 102, 0.05); */
 }
 
 /* ==========================================================================
