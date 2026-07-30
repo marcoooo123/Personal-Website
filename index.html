@@ -288,68 +288,74 @@
 
 </section>
 
-  <footer id="contact-section" class="footer">
-    <div class="footer-grid">
-      <div class="contact-info">
-        <span class="contact-mini-title">與我聯絡</span>
-        <h2>CONTACT</h2>
-        <p>歡迎任何求職機會與合作邀約，無論是職涯發展或專案合作，都可透過表單或直接與我聯繫！</p><br>
-        <p>I welcome job opportunities and collaboration proposals.</p><br>
-        <p>Whether it's career development or project collaboration, please feel free to reach out through the form or contact me directly!</p>
-        <div class="social-icons">
-          <a href="https://www.instagram.com/marco_hsu1018?igsh=a240YXE1azkyd3Br&utm_source=qr" target="_blank">
-            <i class="fa-brands fa-instagram"></i>
-          </a>
-          <a href="https://line.me/ti/p/uoy-JYY3xC" target="_blank">
-            <i class="fa-brands fa-line"></i>
-          </a>
-          <a href="https://www.linkedin.com/in/ming-chieh-hsu-20b677295/" target="_blank">
-            <i class="fa-brands fa-linkedin-in"></i>
-          </a>
-        </div>
-        <a href="mailto:m0902329118@gmail.com" class="email-text">
-          <i class="far fa-envelope"></i> m0902329118@gmail.com
+<footer id="contact-section" class="footer">
+  <div class="footer-grid">
+    <div class="contact-info">
+      <span class="contact-mini-title">與我聯絡</span>
+      <h2>CONTACT</h2>
+      <p>歡迎任何求職機會與合作邀約，無論是職涯發展或專案合作，都可透過表單或直接與我聯繫！</p><br>
+      <p>I welcome job opportunities and collaboration proposals.</p><br>
+      <p>Whether it's career development or project collaboration, please feel free to reach out through the form or contact me directly!</p>
+      <div class="social-icons">
+        <a href="https://www.instagram.com/marco_hsu1018?igsh=a240YXE1azkyd3Br&utm_source=qr" target="_blank">
+          <i class="fa-brands fa-instagram"></i>
+        </a>
+        <a href="https://line.me/ti/p/uoy-JYY3xC" target="_blank">
+          <i class="fa-brands fa-line"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/ming-chieh-hsu-20b677295/" target="_blank">
+          <i class="fa-brands fa-linkedin-in"></i>
         </a>
       </div>
+      <a href="mailto:m0902329118@gmail.com" class="email-text">
+        <i class="far fa-envelope"></i> m0902329118@gmail.com
+      </a>
+    </div>
+
     <div class="contact-form-box">
+      <!-- 成功提示 (改用 HTML 傳送時可隱藏或透過 JS 觸發) -->
+      <div class="form-success" id="formSuccess">Message sent successfully ✔</div>
 
-  <!-- 成功提示 -->
-  <div class="form-success" id="formSuccess">Message sent successfully ✔</div>
+      <!-- 1. 修改這裡：加入 action 和 method -->
+      <form class="contact-form" id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+        
+        <!-- 2. 加入這行 Access Key (注意：name 屬性大寫 Name, Phone, Email, Notes 方便信件閱讀) -->
+        <input type="hidden" name="access_key" value="6b0fbd59-c175-4e4e-9c77-ba8f00c7dd76">
+        <input type="hidden" name="subject" value="【個人網站】收到新的求職/合作邀約！">
 
-  <form class="contact-form" id="contactForm">
-    <div class="form-row-double">
-      <div class="field-wrap">
-        <label>姓名 (Name)</label>
-        <input type="text" name="name" placeholder="Please enter your name." required>
-      </div>
-      <div class="field-wrap">
-        <label>手機號碼(Phone)</label>
-        <input type="tel" name="phone" placeholder="Please enter your phone number.">
-      </div>
+        <div class="form-row-double">
+          <div class="field-wrap">
+            <label>姓名 (Name)</label>
+            <input type="text" name="Name" placeholder="Please enter your name." required>
+          </div>
+          <div class="field-wrap">
+            <label>手機號碼(Phone)</label>
+            <input type="tel" name="Phone" placeholder="Please enter your phone number.">
+          </div>
+        </div>
+
+        <div class="form-row-single">
+          <div class="field-wrap">
+            <label>電子信箱 (Email)</label>
+            <input type="email" name="Email" placeholder="Please enter your email address." required>
+          </div>
+        </div>
+
+        <div class="form-row-single">
+          <div class="field-wrap">
+            <label>備註 (Notes)</label>
+            <textarea name="Notes" rows="5" placeholder="Please enter your message here..."></textarea>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-form-submit" id="submitBtn">
+          <span class="btn-text">Send</span>
+          <span class="btn-loading">Sending...</span>
+        </button>
+      </form>
     </div>
-
-    <div class="form-row-single">
-      <div class="field-wrap">
-        <label>電子信箱 (Email)</label>
-        <input type="email" name="email" placeholder="Please enter your email address." required>
-      </div>
-    </div>
-
-    <div class="form-row-single">
-      <div class="field-wrap">
-        <label>備註 (Notes)</label>
-        <textarea name="message" rows="5" placeholder="Please enter your message here..."></textarea>
-      </div>
-    </div>
-
-    <button type="submit" class="btn-form-submit" id="submitBtn">
-      <span class="btn-text">Send</span>
-      <span class="btn-loading">Sending...</span>
-    </button>
-
-  </form>
-</div>
-
+  </div>
+</footer>
 
 
 
@@ -424,7 +430,6 @@ dots.forEach(dot => {
     showSlide(parseInt(dot.dataset.index));
 
   });
-
 });
 
 setInterval(() => {
