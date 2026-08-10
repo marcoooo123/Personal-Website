@@ -9,7 +9,7 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght=400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="style.css">
 </head>
@@ -27,7 +27,7 @@
 
   <section class="hero">
     <div class="hero-text">
-      <h1>Hello<br>I'm Ming-Chieh</Ming-Chieh></h1>
+      <h1>Hello<br>I'm Ming-Chieh</h1>
       <p>I hold dual bachelor's degrees in Materials Science and Engineering and Management Science from National Yang Ming Chiao Tung University. </p>
       <p>I will be pursuing a Master of Engineering (MEng) in Materials Science and Engineering at the University of California, Berkeley. </p>
       <p>I am actively seeking internship and full-time opportunities in the semiconductor industry. If you have relevant opportunities or would like to discuss potential collaborations, please feel free to send an interview invitation or contact me through the CONTACT section below.</p>
@@ -154,8 +154,8 @@
         <span class="tags">Microcosm Technology x Process Integration Engineer (Full-time)</span>
         <p>1. Hands-on experience with semiconductor Photolithography processes, including operation of coating, exposure, and development equipment.</p>
         <p>2. Introduced and evaluated new materials, assessed their feasibility for production, analyzed process-related issues, and proposed process optimization and improvement solutions.</p>
-        <p>3.	Managed and maintained production equipment to ensure process safety, stability, and reliability during manufacturing.</p>
-        <p>4.	Implemented process efficiency improvement initiatives to enhance production throughput and yield while reducing manufacturing costs.</p>
+        <p>3. Managed and maintained production equipment to ensure process safety, stability, and reliability during manufacturing.</p>
+        <p>4. Implemented process efficiency improvement initiatives to enhance production throughput and yield while reducing manufacturing costs.</p>
       </div>
     </div>
 
@@ -313,13 +313,12 @@
     </div>
 
     <div class="contact-form-box">
-      <!-- 成功提示 (改用 HTML 傳送時可隱藏或透過 JS 觸發) -->
+      <!-- 成功提示 (使用原生 HTML 提交時會跳轉至 Web3Forms 感謝頁面) -->
       <div class="form-success" id="formSuccess">Message sent successfully ✔</div>
 
-      <!-- 1. 修改這裡：加入 action 和 method -->
+      <!-- 原生表單提交，確保 100% 成功送達 -->
       <form class="contact-form" id="contactForm" action="https://api.web3forms.com/submit" method="POST">
         
-        <!-- 2. 加入這行 Access Key (注意：name 屬性大寫 Name, Phone, Email, Notes 方便信件閱讀) -->
         <input type="hidden" name="access_key" value="6b0fbd59-c175-4e4e-9c77-ba8f00c7dd76">
         <input type="hidden" name="subject" value="【個人網站】收到新的求職/合作邀約！">
 
@@ -357,63 +356,8 @@
   </div>
 </footer>
 
-
-
 <script>
-const form = document.getElementById("contactForm");
-const btn = document.getElementById("submitBtn");
-const success = document.getElementById("formSuccess");
-
-form.addEventListener("submit", function(e) {
-  e.preventDefault(); // 阻止頁面跳轉
-
-  btn.classList.add("loading");
-
-  // 收集表單資料並轉成 JSON
-  const formData = new FormData(form);
-  const object = Object.fromEntries(formData);
-  const json = JSON.stringify(object);
-
-  // 實際發送請求到 Web3Forms 伺服器
-  fetch('https://api.web3forms.com/submit', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    },
-    body: json
-  })
-  .then(async (response) => {
-    let res = await response.json();
-    
-    // 移除 Loading 狀態
-    btn.classList.remove("loading");
-
-    if (response.status === 200) {
-      // 伺服器回傳成功
-      btn.classList.add("success");
-      success.style.display = "block";
-      form.reset();
-
-      // 3秒後隱藏成功提示
-      setTimeout(() => {
-        success.style.display = "none";
-        btn.classList.remove("success");
-      }, 3000);
-    } else {
-      // 伺服器回傳失敗
-      console.log(res);
-      alert("發送失敗：" + (res.message || "請稍後再試。"));
-    }
-  })
-  .catch(error => {
-    console.log(error);
-    btn.classList.remove("loading");
-    alert("發生網路錯誤，請檢查您的連線。");
-  });
-});
-
-
+// 圖片輪播 Script（保留原本功能）
 const images = [
   "offer/UCB.png",
   "offer/CMU.png",
@@ -430,53 +374,36 @@ const slider = document.getElementById("offer-slider");
 const dots = document.querySelectorAll(".dot");
 
 function showSlide(index) {
-
   slider.style.opacity = 0;
-
   setTimeout(() => {
-
     current = index;
-
     slider.src = images[current];
-
     slider.style.opacity = 1;
-
     dots.forEach(dot => {
       dot.classList.remove("active");
     });
-
     dots[current].classList.add("active");
-
   }, 300);
 }
 
 dots.forEach(dot => {
-
   dot.addEventListener("click", () => {
-
     showSlide(parseInt(dot.dataset.index));
-
   });
 });
 
 setInterval(() => {
-
   const next = (current + 1) % images.length;
-
   showSlide(next);
-
 }, 2500);
 
 dots.forEach(dot => {
-
   dot.addEventListener("click", () => {
-
     showSlide(Number(dot.dataset.index));
-
   });
-
 });
-
 </script>
 
 <div class="copyright">© 2026 Marco's Website. All Rights Reserved.</div>
+</body>
+</html>
