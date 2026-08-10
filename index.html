@@ -159,7 +159,7 @@
       </div>
     </div>
 
-  </div> <!-- / .project-list 確保所有卡片都在名單內對齊 -->
+  </div> <!-- / .project-list -->
 
   <div class="project-item project-item-reverse">
   <div class="project-img-container">
@@ -313,11 +313,11 @@
     </div>
 
     <div class="contact-form-box">
-      <!-- 成功提示 (使用原生 HTML 提交時會跳轉至 Web3Forms 感謝頁面) -->
+      <!-- 成功提示 (透過 JS 控制顯示與隱藏) -->
       <div class="form-success" id="formSuccess">Message sent successfully ✔</div>
 
-      <!-- 原生表單提交，確保 100% 成功送達 -->
-      <form class="contact-form" id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+      <!-- 不加 action，透過 AJAX 非同步送出 -->
+      <form class="contact-form" id="contactForm">
         
         <input type="hidden" name="access_key" value="6b0fbd59-c175-4e4e-9c77-ba8f00c7dd76">
         <input type="hidden" name="subject" value="【個人網站】收到新的求職/合作邀約！">
@@ -357,7 +357,54 @@
 </footer>
 
 <script>
-// 圖片輪播 Script（保留原本功能）
+// AJAX 表單送出處理（不跳轉頁面、顯示成功提示）
+const form = document.getElementById("contactForm");
+const btn = document.getElementById("submitBtn");
+const success = document.getElementById("formSuccess");
+
+form.addEventListener("submit", function(e) {
+  e.preventDefault(); // 阻止頁面跳轉與預設送出
+
+  btn.classList.add("loading");
+
+  const formData = new FormData(form);
+  const object = Object.fromEntries(formData);
+  const json = JSON.stringify(object);
+
+  fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: json
+  })
+  .then(async (response) => {
+    let res = await response.json();
+    btn.classList.remove("loading");
+
+    if (response.status === 200) {
+      // 成功：顯示提示並清空表單
+      success.style.display = "block";
+      form.reset();
+
+      // 3 秒後自動隱藏成功提示
+      setTimeout(() => {
+        success.style.display = "none";
+      }, 3000);
+    } else {
+      console.error("Web3Forms 回傳錯誤：", res);
+      alert("發送失敗：" + (res.message || "請稍後再試。"));
+    }
+  })
+  .catch(error => {
+    console.error("網路連線錯誤：", error);
+    btn.classList.remove("loading");
+    alert("發生網路錯誤，請檢查您的連線。");
+  });
+});
+
+// 圖片輪播 Script
 const images = [
   "offer/UCB.png",
   "offer/CMU.png",
