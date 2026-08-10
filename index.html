@@ -365,25 +365,52 @@ const btn = document.getElementById("submitBtn");
 const success = document.getElementById("formSuccess");
 
 form.addEventListener("submit", function(e) {
-  e.preventDefault();
+  e.preventDefault(); // 阻止頁面跳轉
 
   btn.classList.add("loading");
 
-  setTimeout(() => {
+  // 收集表單資料並轉成 JSON
+  const formData = new FormData(form);
+  const object = Object.fromEntries(formData);
+  const json = JSON.stringify(object);
 
+  // 實際發送請求到 Web3Forms 伺服器
+  fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: json
+  })
+  .then(async (response) => {
+    let res = await response.json();
+    
+    // 移除 Loading 狀態
     btn.classList.remove("loading");
-    btn.classList.add("success");
 
-    success.style.display = "block";
+    if (response.status === 200) {
+      // 伺服器回傳成功
+      btn.classList.add("success");
+      success.style.display = "block";
+      form.reset();
 
-    form.reset();
-
-    setTimeout(() => {
-      success.style.display = "none";
-      btn.classList.remove("success");
-    }, 2000);
-
-  }, 1500);
+      // 3秒後隱藏成功提示
+      setTimeout(() => {
+        success.style.display = "none";
+        btn.classList.remove("success");
+      }, 3000);
+    } else {
+      // 伺服器回傳失敗
+      console.log(res);
+      alert("發送失敗：" + (res.message || "請稍後再試。"));
+    }
+  })
+  .catch(error => {
+    console.log(error);
+    btn.classList.remove("loading");
+    alert("發生網路錯誤，請檢查您的連線。");
+  });
 });
 
 
